@@ -1,0 +1,33 @@
+{
+  "name": "@propra/jsonata-mcp",
+  "version": "0.1.0",
+  "description": "JSONata Model Context Protocol (MCP) implementation",
+  "main": "src/index.ts",
+  "type": "module",
+  "bin": {
+    "jsonata-mcp": "./bin/jsonata-mcp.js"
+  },
+  "scripts": {
+    "start": "node --no-warnings --experimental-transform-types src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "jsonata",
+    "model context protocol"
+  ],
+  "author": "Propra Technologies, Inc.",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2",
+    "jsonata": "^2.0.6",
+    "zod": "^3.24.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "packageManager": "pnpm@9.2.0"
+}
