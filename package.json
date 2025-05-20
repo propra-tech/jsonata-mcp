@@ -4,11 +4,12 @@
   "description": "JSONata Model Context Protocol (MCP) implementation",
   "main": "src/index.ts",
   "type": "module",
-  "bin": {
-    "jsonata-mcp": "./bin/jsonata-mcp.js"
-  },
+  "bin": "./bin/jsonata-mcp.js",
   "scripts": {
-    "start": "node --no-warnings --experimental-transform-types src/index.ts"
+    "test": "node --no-warnings --experimental-transform-types --test --test-reporter=spec \"**/*.spec.ts\"",
+    "start": "node --no-warnings --experimental-transform-types src/index.ts",
+    "check-types": "tsc",
+    "build": "tsup"
   },
   "keywords": [
     "mcp",
@@ -19,6 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.15.3",
+    "tsup": "^8.4.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
@@ -26,8 +28,13 @@
     "jsonata": "^2.0.6",
     "zod": "^3.24.3"
   },
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "packageManager": "pnpm@9.2.0"
+  "packageManager": "pnpm@9.2.0",
+  "tsup": {
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "esm"
+    ]
+  }
 }

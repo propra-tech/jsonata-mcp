@@ -1,26 +1,20 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import jsonata from 'jsonata';
-import { z } from 'zod';
+import { evaluate, evaluateSchema } from './evaluate.ts';
 
 const server = new McpServer({
   name: 'JSONata',
   version: '0.1.0',
 });
 
-server.tool(
-  'evaluate',
-  { data: z.string().default('{}'), expression: z.string(), bindings: z.string().default('{}') },
-  async ({ data, expression, bindings }) => {
-    const jsonataExpression = jsonata(expression);
-    const result = await jsonataExpression.evaluate(JSON.parse(data), JSON.parse(bindings));
+server.tool('evaluate', evaluateSchema, evaluate);
 
-    return {
-      content: [{ type: 'text', text: JSON.stringify(result) }],
-    };
-  }
-);
+const runServer = async () => {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+};
 
-// Start receiving messages on stdin and sending messages on stdout
-const transport = new StdioServerTransport();
-await server.connect(transport);
+runServer().catch((error) => {
+  console.error('Fatal error:', error);
+  process.exit(1);
+});
